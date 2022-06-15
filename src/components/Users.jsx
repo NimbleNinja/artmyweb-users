@@ -1,4 +1,5 @@
-import { List, PageHeader, Pagination, Select } from 'antd';
+import { PageHeader, Select, Table } from 'antd';
+import Column from 'antd/lib/table/Column';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getUsers } from '../users.gateway';
@@ -9,25 +10,19 @@ const { Option } = Select;
 const Users = () => {
   const navigate = useNavigate();
 
-  const [gender, setGender] = useState(null);
+  const [gender, setGender] = useState('all');
   const [usersList, setUsersList] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(5);
 
   useEffect(() => {
     getUsers().then(users => {
-      console.log(users);
       setUsersList(users);
     });
   }, []);
 
-  const filteredUsers = gender
-    ? usersList.filter(user => user.gender === gender)
-    : usersList;
-
-  const startIndex = pageSize * (currentPage - 1);
-  const endIndex = startIndex + pageSize;
-  const currentPageUsers = filteredUsers.slice(startIndex, endIndex);
+  const filteredUsers =
+    gender === 'all'
+      ? usersList
+      : usersList.filter(user => user.gender === gender);
 
   return (
     <div className={styles.users}>
@@ -36,36 +31,24 @@ const Users = () => {
         onBack={() => navigate('/')}
         title='Users'
       />
-      <div className={styles.filter}>
+      <div>
         <span>Filter by gender: </span>
         <Select defaultValue={gender} onChange={option => setGender(option)}>
           <Option value='male'>male</Option>
           <Option value='female'>female</Option>
         </Select>
       </div>
-      <List
-        className={styles.list}
-        itemLayout='horizontal'
-        dataSource={currentPageUsers}
-        renderItem={user => (
-          <List.Item
-            className={styles['list-item']}
-            actions={[<Link to={`/users/${user.id}`}>edit</Link>]}>
-            <List.Item.Meta title={user.name} description={user.email} />
-            <div className={styles.status}>{user.status}</div>
-            <div>{user.gender}</div>
-          </List.Item>
-        )}
-      />
-      <Pagination
-        current={currentPage}
-        total={filteredUsers.length}
-        pageSize={pageSize}
-        pageSizeOptions={[5, 10, 15, 20, 50]}
-        onChange={page => setCurrentPage(page)}
-        onShowSizeChange={(_, size) => setPageSize(size)}
-        showSizeChanger
-      />
+      <Table dataSource={filteredUsers} pagination={{ pageSize: 6 }}>
+        <Column title='Name' dataIndex='name' key='name' />
+        <Column title='Email' dataIndex='email' key='email' />
+        <Column title='Gender' dataIndex='gender' key='gender' />
+        <Column title='Status' dataIndex='status' key='status' />
+        <Column
+          title='Action'
+          key='status'
+          render={(_, { id }) => <Link to={`/users/${id}`}>Edit</Link>}
+        />
+      </Table>
     </div>
   );
 };

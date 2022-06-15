@@ -36,14 +36,11 @@ const EditUser = () => {
         },
         success: {
           render({ data }) {
-            return `Hello ${data}`;
+            return `User ${data.id} was updated!`;
           },
-          // other options
-          icon: '🟢',
         },
         error: {
           render({ data }) {
-            // When the promise reject, data will contains the error
             return data.message;
           },
         },
@@ -55,18 +52,8 @@ const EditUser = () => {
       });
   };
 
-  //const onClickHandler = async () => {
-  //  const response = await toast.promise(getUserById(userId), {
-  //    pending: 'Promise is pending',
-  //    success: 'Promise resolved 👌',
-  //    error: 'Promise rejected 🤯',
-  //  });
-  //  navigate('/users');
-  //};
-
   return (
     <>
-      {/*<button onClick={onClickHandler}>toast</button>*/}
       <ToastContainer autoClose={2000} pauseOnFocusLoss={false} />
       <Form
         style={{ alignSelf: 'center' }}
@@ -74,9 +61,7 @@ const EditUser = () => {
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 16 }}
         fields={fields}
-        onFinish={onFinishHandler}
-        //onFinishFailed={e => console.log(e)}
-      >
+        onFinish={onFinishHandler}>
         <Form.Item
           label='Name'
           name='name'
