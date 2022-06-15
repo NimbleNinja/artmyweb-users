@@ -1,6 +1,6 @@
 import { Layout, Typography } from 'antd';
 import { Content, Header } from 'antd/lib/layout/layout';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { HashRouter, Route, Routes } from 'react-router-dom';
 import Users from './Users';
 import UsersLink from './UsersLink';
 import './app.css';
@@ -10,7 +10,7 @@ const { Title } = Typography;
 
 function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Layout className='app'>
         <Header className='header'>
           <Typography>
@@ -26,7 +26,7 @@ function App() {
           </Routes>
         </Content>
       </Layout>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
