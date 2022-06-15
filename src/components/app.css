@@ -1,0 +1,25 @@
+@import '~antd/dist/antd.css';
+
+.app {
+  min-height: 100vh;
+}
+
+.header {
+  padding-top: 20px;
+  height: auto;
+}
+
+.content {
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  color: #fff !important;
+  text-align: center;
+}
+
+.users-link {
+  width: 200px;
+}
