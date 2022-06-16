@@ -1,12 +1,12 @@
 import { Button } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import styles from './users-link.module.css';
+import styles from './users-link.module.scss';
 
 const UsersLink = () => {
   return (
-    <Link className={styles.link} to='users'>
-      <Button block type='primary'>
+    <Link className={styles.link} to="users">
+      <Button block type="primary">
         USERS
       </Button>
     </Link>

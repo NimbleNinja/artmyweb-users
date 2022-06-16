@@ -1,4 +1,4 @@
-import { Form, Button, Input, Select } from 'antd';
+import { Form, Button, Input, Select, Space } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,6 +11,7 @@ const EditUser = () => {
   const navigate = useNavigate();
   const { userId } = useParams();
   const [user, setUser] = useState({});
+  const [isActiveButton, setIsActiveButton] = useState(true);
 
   useEffect(() => {
     getUserById(userId).then(userData => {
@@ -30,6 +31,7 @@ const EditUser = () => {
       .promise(updateUser(user.id, userData), {
         pending: {
           render() {
+            setIsActiveButton(false);
             return 'Loading...';
           },
           icon: false,
@@ -48,66 +50,77 @@ const EditUser = () => {
       .then(() => {
         setTimeout(() => {
           navigate('/users');
-        }, 2000);
+        }, 3000);
       });
   };
 
   return (
     <>
-      <ToastContainer autoClose={2000} pauseOnFocusLoss={false} />
+      <ToastContainer
+        position="top-center"
+        autoClose={2500}
+        pauseOnFocusLoss={false}
+      />
       <Form
         style={{ alignSelf: 'center' }}
-        name='basic'
+        name="basic"
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 16 }}
         fields={fields}
-        onFinish={onFinishHandler}>
+        onFinish={onFinishHandler}
+      >
         <Form.Item
-          label='Name'
-          name='name'
+          label="Name"
+          name="name"
           rules={[
             {
               required: true,
               message: 'Please input your name!',
             },
-          ]}>
+          ]}
+        >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label='Email'
-          name='email'
+          label="Email"
+          name="email"
           rules={[
             {
               required: true,
               message: 'Please input your email!',
             },
-          ]}>
+          ]}
+        >
           <Input />
         </Form.Item>
 
-        <Form.Item label='Gender' name='gender'>
+        <Form.Item label="Gender" name="gender">
           <Select>
-            <Option value='male' />
-            <Option value='female' />
+            <Option value="male" />
+            <Option value="female" />
           </Select>
         </Form.Item>
 
-        <Form.Item label='Status' name='status'>
+        <Form.Item label="Status" name="status">
           <Select>
-            <Option value='active' />
-            <Option value='inactive' />
+            <Option value="active" />
+            <Option value="inactive" />
           </Select>
         </Form.Item>
 
         <Form.Item
           wrapperCol={{
-            offset: 8,
+            offset: 6,
             span: 16,
-          }}>
-          <Button type='primary' htmlType='submit'>
-            Update
-          </Button>
+          }}
+        >
+          <Space>
+            <Button onClick={() => navigate('/users')}>Cancel</Button>
+            <Button type="primary" htmlType="submit" disabled={!isActiveButton}>
+              Update
+            </Button>
+          </Space>
         </Form.Item>
       </Form>
     </>
