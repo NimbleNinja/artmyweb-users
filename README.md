@@ -1,6 +1,6 @@
 # ArtMyWeb test task: Users
 
-##### Netlify page [link](https://comforting-maamoul-0bf20d.netlify.app/#/users).
+##### Netlify page [link](https://comforting-maamoul-0bf20d.netlify.app/#/).
 
 #### Tech stack:
 
