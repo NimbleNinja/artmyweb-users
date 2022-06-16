@@ -5,8 +5,8 @@
 #### Tech stack:
 
 - Create React App
-- Ant Design [link](https://ant.design/index-cn)
-- REST API [link](https://gorest.co.in/)
+- [Ant Design](https://ant.design/index-cn)
+- [REST API](https://gorest.co.in/)
 - React
 - React Hooks
 - JavaScript (ES6)
